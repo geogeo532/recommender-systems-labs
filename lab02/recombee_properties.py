@@ -1,13 +1,13 @@
 import pandas as pd
-from recombee_api_client.api_client import RecombeeClient
+from recombee_api_client.api_client import RecombeeClient, Region
 from recombee_api_client.api_requests import AddItemProperty, ListItemProperties
 from recombee_api_client.exceptions import APIException
 
 # TODO 1: Configurare credentiale Recombee
 # Introduceti datele din contul vostru (Settings -> API Logins in Recombee Admin UI)
-DB_NAME = 'numele_bazei_tale_de_date'
-PRIVATE_TOKEN = 'tokenul_tau_privat'
-REGION = 'eu-west'  # Schimbati cu 'us-west' sau regiunea potrivita daca este cazul
+DB_NAME = 'corbeanu-daniel-george-dev'
+PRIVATE_TOKEN = 'cIVNgGDUI0e6D4fiAX34jB5EldTlIF8UWisupm8FRyynyQLX5EfTRnZs93VfOShf'
+REGION = Region.EU_WEST  # Schimbati cu Region.US_WEST sau regiunea potrivita daca este cazul
 
 # Initializarea clientului Recombee
 client = RecombeeClient(DB_NAME, PRIVATE_TOKEN, region=REGION)
@@ -15,17 +15,19 @@ client = RecombeeClient(DB_NAME, PRIVATE_TOKEN, region=REGION)
 # TODO 2: Configurare dataset propriu
 # Descarcati un dataset (CSV) de pe Kaggle/data.world (100-10K de intrari)
 # Urcati fisierul in acelasi folder cu acest script si setati numele in variabila de mai jos
-PATH_DATASET = 'dataset_ales.csv' 
+PATH_DATASET = 'imdb_top_1000.csv'
 
 # TODO 3: Definirea schemei de date (minim 3 proprietati)
 # Adaptati aceasta lista in functie de coloanele din dataset-ul ales
 # Tipurile de date suportate de Recombee includ: 'string', 'int', 'double', 'boolean', 'timestamp'
 # Ex.: Pentru filme: titlu (string), an (int), rating (double)
 PROPRIETATI_CATALOG = [
-    {"name": "nume_proprietate_1", "type": "string"},
-    {"name": "nume_proprietate_2", "type": "int"},
-    {"name": "nume_proprietate_3", "type": "double"},
-    # Puteti adauga si alte proprietati optionale daca dataset-ul are
+    {"name": "title",           "type": "string"},
+    {"name": "released_year",   "type": "int"},
+    {"name": "imdb_rating",     "type": "double"},
+    {"name": "genre",           "type": "string"},
+    {"name": "director",        "type": "string"},
+    {"name": "runtime_minutes", "type": "int"},
 ]
 
 def load_dataset():
